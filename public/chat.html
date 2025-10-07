@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWave</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar">
+            <!-- Sidebar content will be rendered here -->
+        </div>
+        
+        <div class="chat__main">
+            <header class="chat__header" style="background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%); box-shadow: 0 2px 8px rgba(60,60,100,0.06); border-radius: 0 0 16px 16px; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 2rem; color: #529a8b;">💬</span>
+                    <h1 class="chat__title" style="margin: 0; font-size: 1.7rem; font-weight: 800; color: #2c2f33; letter-spacing: 1px;">ChatWave</h1>
+                </div>
+                <button id="logout" class="logout-btn" style="background: #fff; color: #529a8b; border: 2px solid #529a8b; border-radius: 8px; padding: 8px 22px; font-weight: 600; font-size: 1rem; transition: background 0.2s, color 0.2s, border 0.2s; cursor: pointer;">Leave Room</button>
+            </header>
+
+            <div id="messages" class="chat__messages"></div>
+
+            <form id="chatForm" class="compose">    
+                <button type="button" id="sendLocation" class="icon-btn" title="Send location">📍</button>
+                <input type="text" id="message" placeholder="Type a message">
+                <button id="send" class="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script id="message-template" type="text/html">
+        <div class="message {{messageClass}}">
+            <div class="avatar">{{avatar}}</div>
+            <div class="bubble">
+                <div class="message-header">
+                    <span class="username">{{username}}</span>
+                    <span class="timestamp">{{createdAt}}</span>
+                </div>
+                <div class="message-body">{{message}}</div>
+            </div>
+        </div>
+    </script>
+
+    <script id="location-template" type="text/html">
+        <div class="message {{messageClass}}">
+            <div class="avatar">{{avatar}}</div>
+            <div class="bubble">
+                <div class="message-header">
+                    <span class="username">{{username}}</span>
+                    <span class="timestamp">{{createdAt}}</span>
+                </div>
+                <div class="message-body">
+                    <a href="{{url}}" target="_blank" rel="noopener">
+                        <img 
+                            src="https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=300&height=150&zoom=15&center=lonlat:{{longitude}},{{latitude}}&marker=lonlat:{{longitude}},{{latitude}};color:%23d81b60&apiKey=9b6afe89b0b64519adb969d23ead374c"
+                            alt="Shared location map"
+                            style="width:100%;border-radius:8px;margin-bottom:4px;"
+                        />
+                        <div>📍 Shared location</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="sidebar-template" type="text/html">
+        <h2 class="room-title">Room: {{room}}</h2>
+        <h3 class="list-title">Users</h3>
+        <ul class="users">
+            {{#users}}
+            <li class="user-item"><span class="status-dot"></span>{{username}}</li>
+            {{/users}}
+        </ul>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs/dist/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-button@4.6.5/dist/index.min.js"></script>
+    <script src="/js/chat.js"></script>
+</body>
+</html>

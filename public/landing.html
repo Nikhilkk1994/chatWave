@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatWave – Welcome</title>
+
+  <!-- Google Font (optional but adds polish) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------- Base ---------- */
+    :root {
+      --brand: #529a8b;
+      --brand-dark: #417f73;
+      --bg-from: #e0e7ff;
+      --bg-to: #f8fafc;
+      --text-dark: #2c2f33;
+      --text-muted: #6b7280;
+      --radius: 20px;
+      --shadow: 0 10px 40px rgba(50, 50, 93, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    a { text-decoration: none; }
+
+    /* ---------- Header ---------- */
+    header {
+      width: 100%;
+      max-width: 1100px;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--brand);
+    }
+
+    .header-actions a {
+      margin-left: 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .header-actions .login-btn {
+      border: 2px solid var(--brand);
+      color: var(--brand);
+      background: transparent;
+    }
+    .header-actions .login-btn:hover {
+      background: var(--bg-from);
+    }
+    .header-actions .signup-btn {
+      background: var(--brand);
+      color: #fff;
+    }
+    .header-actions .signup-btn:hover {
+      background: var(--brand-dark);
+    }
+
+    /* ---------- Hero ---------- */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1100px;
+      padding: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-image {
+      flex: 1 1 350px;
+      max-width: 500px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      filter: drop-shadow(var(--shadow));
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    .hero-content {
+      flex: 1 1 320px;
+      max-width: 520px;
+      text-align: left;
+    }
+
+    .hero-content h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-dark);
+    }
+    .hero-content h2 span { color: var(--brand); }
+
+    .hero-content p {
+      margin-top: 16px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hero-actions a {
+      flex: 1 1 140px;
+      text-align: center;
+      padding: 14px 0;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-actions .signup-btn { background: var(--brand); color: #fff; }
+    .hero-actions .signup-btn:hover { background: var(--brand-dark); }
+    .hero-actions .login-btn {
+      background: #fff;
+      color: var(--brand);
+      border: 2px solid var(--brand);
+    }
+    .hero-actions .login-btn:hover { background: var(--bg-from); }
+
+    /* ---------- Footer ---------- */
+    footer {
+      width: 100%;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>ChatWave</h1>
+
+    <nav class="header-actions">
+      <a href="/login.html" class="login-btn">Log in</a>
+      <a href="/signup.html" class="signup-btn">Sign up</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <figure class="hero-image">
+      <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=900&q=80"
+           alt="Friends chatting illustration" />
+    </figure>
+
+    <section class="hero-content">
+      <h2>Connect. Collaborate. <span>Chat</span> Anytime.</h2>
+      <p>All your personal and team conversations—secure, lightning‑fast, and beautifully simple.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © <script>document.write(new Date().getFullYear())</script> ChatWave. All rights reserved.
+  </footer>
+
+</body>
+</html>

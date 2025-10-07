@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ChatWave</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body { min-height: 100vh; background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%); display: flex; align-items: center; justify-content: center; }
+        .login-card { background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(60,60,100,0.12); padding: 40px 32px 32px 32px; max-width: 350px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .login-card h1 { margin: 0 0 8px 0; font-size: 2rem; font-weight: 700; color: #2c2f33; }
+        .login-card p { margin: 0 0 24px 0; color: #6b7280; font-size: 1rem; }
+        .login-card label { align-self: flex-start; margin-bottom: 4px; color: #374151; font-size: 1rem; font-weight: 500; }
+        .login-card input { width: 100%; padding: 12px 14px; margin-bottom: 18px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; background: #f9fafb; transition: border 0.2s; }
+        .login-card input:focus { border: 1.5px solid #529a8b; outline: none; background: #fff; }
+        .login-card button { width: 100%; padding: 12px 0; background: #529a8b; color: #fff; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .login-card button:hover { background: #417f73; }
+    </style>
+</head>
+<body>
+    <main>
+        <form class="login-card" id="loginForm" autocomplete="off">
+            <h1>Login to ChatWave</h1>
+            <p>Welcome back! Log in to start chatting and making waves with your friends and colleagues.</p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required autocomplete="off">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required autocomplete="off">
+            <button type="submit">Login</button>
+        </form>
+    </main>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your login logic here
+        alert('Login submitted!');
+      });
+    </script>
+</body>
+</html> 
