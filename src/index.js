@@ -1,7 +1,6 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
-const Filter = require('bad-words');
 const socketIO = require('socket.io');
 const app = express();
 const server = http.createServer(app);
@@ -39,8 +38,6 @@ io.on('connection', (socket) => {
         console.log('sendMessage', JSON.stringify(eventData))
         const user = getUser(socket.id)
         if (!user) return callback('User not found')
-        const filter = new Filter()
-        if (filter.isProfane(eventData.text)) return callback('Profanity is not allowed')
         io.to(user.room).emit('personChatMessage', eventData)
         callback()
     })
