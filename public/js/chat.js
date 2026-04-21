@@ -7,6 +7,21 @@ const $recordAudio = document.querySelector('#recordAudio')
 
 const $messages = document.querySelector('#messages')
 const $typingIndicator = document.querySelector('#typingIndicator')
+const $companionPrompt = document.querySelector('#companionPrompt')
+const $companionStream = document.querySelector('#companionStream')
+const $askCompanion = document.querySelector('#askCompanion')
+
+let activeCompanionRequestId = null
+let $companionStreamEl = null
+let companionStreamBody = null
+
+function removeCompanionStreamEl() {
+    if ($companionStreamEl && $companionStreamEl.parentNode) {
+        $companionStreamEl.parentNode.removeChild($companionStreamEl)
+    }
+    $companionStreamEl = null
+    companionStreamBody = null
+}
 
 // Who is currently typing (other users only; keyed by lowercase username)
 const typingUsers = new Map()
@@ -76,6 +91,15 @@ socket.on('roomData', ({ room, users }) => {
 })
 
 socket.on('personChatMessage', (eventData) => {
+    if (
+        eventData.isAi &&
+        eventData.companionRequestId &&
+        eventData.companionRequestId === activeCompanionRequestId
+    ) {
+        removeCompanionStreamEl()
+        activeCompanionRequestId = null
+    }
+
     const displayName = capitalize(eventData.username)
     const isOwn = displayName.toLowerCase() === username.toLowerCase()
     const isLocation = eventData.isLocation;
@@ -103,6 +127,15 @@ socket.on('personChatMessage', (eventData) => {
             avatar: displayName.charAt(0)
         });
         $messages.insertAdjacentHTML('beforeend', html);
+    } else if (eventData.isAi) {
+        const html = Mustache.render(messageTemplate, {
+            message: eventData.text,
+            username: displayName,
+            createdAt: moment().format('h:mm a'),
+            messageClass: 'other-message companion-ai',
+            avatar: displayName.charAt(0) || '✨'
+        });
+        $messages.insertAdjacentHTML('beforeend', html);
     } else {
         const html = Mustache.render(messageTemplate, {
             message: eventData.text,
@@ -114,6 +147,34 @@ socket.on('personChatMessage', (eventData) => {
         $messages.insertAdjacentHTML('beforeend', html);
     }
     $messages.scrollTop = $messages.scrollHeight;
+})
+
+socket.on('aiChunk', ({ requestId, chunk }) => {
+    if (!requestId || chunk == null || !$messages) return
+    activeCompanionRequestId = requestId
+    if (!$companionStreamEl || $companionStreamEl.dataset.requestId !== requestId) {
+        removeCompanionStreamEl()
+        activeCompanionRequestId = requestId
+        $companionStreamEl = document.createElement('div')
+        $companionStreamEl.className = 'message other-message companion-streaming'
+        $companionStreamEl.dataset.requestId = requestId
+        $companionStreamEl.innerHTML =
+            '<div class="avatar">✨</div><div class="bubble"><div class="message-header"><span class="username">Claude</span><span class="timestamp">' +
+            moment().format('h:mm a') +
+            '</span></div><div class="message-body companion-stream-body"></div></div>'
+        $messages.appendChild($companionStreamEl)
+        companionStreamBody = $companionStreamEl.querySelector('.companion-stream-body')
+    }
+    if (companionStreamBody) companionStreamBody.appendChild(document.createTextNode(chunk))
+    $messages.scrollTop = $messages.scrollHeight
+})
+
+socket.on('aiDone', () => {})
+
+socket.on('companionError', ({ message }) => {
+    removeCompanionStreamEl()
+    activeCompanionRequestId = null
+    if (message) alert(message)
 })
 
 $messageInput.addEventListener('input', () => {
@@ -160,6 +221,25 @@ $messageForm.addEventListener('submit', (e) => {
         console.log('Message delivered')
     })
 })
+
+if ($askCompanion && $companionPrompt && $companionStream) {
+    $askCompanion.addEventListener('click', () => {
+        const prompt = $companionPrompt.value.trim()
+        if (!prompt) return
+        const stream = $companionStream.checked
+        $askCompanion.disabled = true
+        socket.emit('askCompanion', { prompt, stream }, (err) => {
+            $askCompanion.disabled = false
+            if (err) {
+                alert(err)
+                removeCompanionStreamEl()
+                activeCompanionRequestId = null
+                return
+            }
+            $companionPrompt.value = ''
+        })
+    })
+}
 
 $sendLocation.addEventListener('click', () => {
     if (!navigator.geolocation) {

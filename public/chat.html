@@ -25,6 +25,12 @@
 
             <div id="typingIndicator" class="typing-indicator" aria-live="polite" aria-atomic="true"></div>
 
+            <div class="companion-bar">
+                <input type="text" id="companionPrompt" placeholder="Ask Claude (uses recent room messages as context)…" autocomplete="off" />
+                <label class="companion-stream-toggle"><input type="checkbox" id="companionStream" checked /> Stream</label>
+                <button type="button" id="askCompanion" class="companion-ask-btn">Ask AI</button>
+            </div>
+
             <form id="chatForm" class="compose">    
                 <button type="button" id="sendLocation" class="icon-btn" title="Send location">📍</button>
                 <button type="button" id="recordAudio" class="icon-btn" title="Record audio">🎤</button>

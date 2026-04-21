@@ -130,6 +130,63 @@ h1 {
     opacity: 1;
 }
 
+.companion-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px 12px;
+    background: #f0f4ff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.companion-bar #companionPrompt {
+    flex: 1 1 200px;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.companion-stream-toggle {
+    font-size: 0.85rem;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.companion-ask-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.companion-ask-btn:hover {
+    background: #4338ca;
+}
+
+.companion-ask-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.message.companion-ai .bubble {
+    border-left: 3px solid #6366f1;
+}
+
+.message.companion-streaming .bubble {
+    border-left: 3px dashed #a5b4fc;
+    opacity: 0.95;
+}
+
 /* Message Styles */
 .message {
     margin-bottom: 16px;
