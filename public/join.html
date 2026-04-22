@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWave — Join a room</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <div class="auth-shell">
+        <div class="auth-card auth-card--narrow">
+            <div class="auth-brand">
+                <span class="auth-logo">💬</span>
+                <h1>Join a room</h1>
+                <p class="auth-tagline">Signed in as <strong id="whoami">…</strong></p>
+            </div>
+            <form id="joinForm">
+                <label for="room">Room name</label>
+                <input type="text" id="room" name="room" placeholder="e.g. general, team-alpha" required minlength="1" maxlength="64" />
+                <button type="submit" class="btn btn--primary">Enter chat</button>
+            </form>
+            <p class="auth-footer"><button type="button" class="link-btn" id="signOut">Sign out</button></p>
+        </div>
+    </div>
+    <script src="/js/join.js"></script>
+</body>
+</html>
