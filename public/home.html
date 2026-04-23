@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWave — Sign in</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <div class="auth-shell">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <span class="auth-logo">💬</span>
+                <h1>ChatWave</h1>
+                <p class="auth-tagline">Sign in or create an account, then pick a room to chat.</p>
+            </div>
+
+            <div class="tabs">
+                <button type="button" class="tab tab--active" data-tab="login">Log in</button>
+                <button type="button" class="tab" data-tab="signup">Sign up</button>
+            </div>
+
+            <div id="authError" class="auth-error" role="alert" hidden></div>
+
+            <form id="formLogin" class="panel panel--active" autocomplete="on">
+                <label for="loginUser">Username</label>
+                <input type="text" id="loginUser" name="username" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9_-]+" placeholder="your_name" />
+                <label for="loginPass">Password</label>
+                <input id="loginPass" name="password" type="password" required minlength="8" autocomplete="current-password" />
+                <button type="submit" class="btn btn--primary">Log in</button>
+            </form>
+
+            <form id="formSignup" class="panel" autocomplete="on">
+                <label for="signupUser">Username</label>
+                <input type="text" id="signupUser" name="username" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9_-]+" placeholder="pick_a_name" />
+                <label for="signupPass">Password</label>
+                <input id="signupPass" name="password" type="password" required minlength="8" autocomplete="new-password" />
+                <p class="hint">At least 8 characters. Use letters, numbers, <code>_</code> or <code>-</code> in your username.</p>
+                <button type="submit" class="btn btn--primary">Create account</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

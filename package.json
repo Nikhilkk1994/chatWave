@@ -4,19 +4,24 @@
   "description": "Real-time chat application with Socket.io",
   "main": "src/index.js",
   "engines": {
-    "node": ">=14.0.0"
+    "node": "20.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "render-build": "npm ci --omit=dev --no-audit --no-fund"
   },
   "author": "Nikhil",
   "license": "ISC",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "11.10.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "16.6.1",
     "express": "4.16.4",
+    "express-session": "^1.18.1",
     "socket.io": "2.2.0"
   },
   "devDependencies": {

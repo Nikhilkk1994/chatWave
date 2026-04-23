@@ -1,0 +1,3 @@
+# Used when Railway builds with Nixpacks (older builder path).
+[variables]
+NIXPACKS_NODE_VERSION = "20"
