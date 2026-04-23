@@ -1,3 +1,2 @@
 .env
 src/config.local.js
-node_modules/
