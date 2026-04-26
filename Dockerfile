@@ -1,5 +1,5 @@
-# syntax=docker/dockerfile:1
-# Pure JS deps — no native compile. Rebuilds faster with npm cache mount.
+# Pure JS deps — no native compile.
+# No BuildKit cache mounts: Railway requires service-scoped cache `id=...`, not suitable for a shared repo Dockerfile.
 
 FROM node:20-bookworm-slim
 
@@ -8,8 +8,7 @@ ENV NODE_ENV=production
 
 COPY package.json package-lock.json ./
 
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev --no-audit --no-fund \
+RUN npm ci --omit=dev --no-audit --no-fund \
     && node -e "require('express'); console.log('deps ok')"
 
 COPY . .
