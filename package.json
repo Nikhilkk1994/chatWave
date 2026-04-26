@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "render-build": "npm ci --omit=dev --no-audit --no-fund"
+    "render-build": "npm ci --omit=dev --no-audit --no-fund && node -e \"require('express'); require('better-sqlite3'); console.log('deps ok')\""
   },
   "author": "Nikhil",
   "license": "ISC",
