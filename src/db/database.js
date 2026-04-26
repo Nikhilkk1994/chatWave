@@ -1,14 +1,7 @@
-const Database = require('better-sqlite3');
+const path = require('path');
+const { FileUserStore } = require('./FileUserStore');
 
-const db = new Database(':memory:');
+const dataDir = path.resolve(process.env.USER_DATA_DIR || path.join(process.cwd(), 'data'));
+const store = new FileUserStore(dataDir);
 
-db.exec(`
-  CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE COLLATE NOCASE,
-    password_hash TEXT NOT NULL,
-    created_at INTEGER NOT NULL
-  );
-`);
-
-module.exports = { db };
+module.exports = { store, dataDir };

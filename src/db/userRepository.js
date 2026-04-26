@@ -1,4 +1,4 @@
-const { db } = require('./database');
+const { store } = require('./database');
 
 function normalizeUsername(raw) {
     return String(raw || '').trim().slice(0, 32);
@@ -11,36 +11,30 @@ function isValidUsername(u) {
 /**
  * @param {string} username
  * @param {string} passwordHash
- * @returns {{ id: number, username: string } | null}
+ * @returns {Promise<{ id: number, username: string } | null>}
  */
-function createUser(username, passwordHash) {
+async function createUser(username, passwordHash) {
     const u = normalizeUsername(username);
     if (!isValidUsername(u)) return null;
     const now = Date.now();
-    try {
-        const info = db
-            .prepare('INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?)')
-            .run(u, passwordHash, now);
-        return { id: Number(info.lastInsertRowid), username: u };
-    } catch (_) {
-        return null;
-    }
+    return store.createUser(u, passwordHash, now);
 }
 
 /**
  * @param {string} username
- * @returns {{ id: number, username: string, password_hash: string } | undefined}
+ * @returns {Promise<{ id: number, username: string, password_hash: string } | undefined>}
  */
 function findByUsername(username) {
     const u = normalizeUsername(username);
-    return db.prepare('SELECT id, username, password_hash FROM users WHERE username = ? COLLATE NOCASE').get(u);
+    return store.findByUsername(u);
 }
 
 /**
  * @param {number} id
+ * @returns {Promise<{ id: number, username: string } | undefined>}
  */
 function findById(id) {
-    return db.prepare('SELECT id, username FROM users WHERE id = ?').get(id);
+    return store.findById(id);
 }
 
 module.exports = { createUser, findByUsername, findById, isValidUsername, normalizeUsername };

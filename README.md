@@ -1,20 +1,20 @@
 # ChatWave
 
-Real-time chat with **sign up / log in**, an **in-memory SQLite** user store, **cookie sessions**, then **pick a room** and chat. Optional **Claude** “Ask AI” when `ANTHROPIC_API_KEY` is set.
+Real-time chat with **sign up / log in**, a **JSON file user store** on disk (`data/users.json` by default), **cookie sessions**, then **pick a room** and chat. Optional **Claude** “Ask AI” when `ANTHROPIC_API_KEY` is set.
 
 ## Flow
 
 1. Open `/` → **home** (`public/home.html`): sign up or log in.  
 2. After success → **`/join`** → enter a **room name** → **Enter chat** → `chat.html?room=...`.  
 3. The server puts your **username from the session** into the room (the client cannot pick another user’s name for the socket `join`).  
-4. **Leave room** logs you out of the app session and returns to `/`.
+4. **Leave room** returns to **`/join`** (session stays active).
 
-User rows live in **SQLite `:memory:`** — they disappear when the Node process restarts.
+Accounts are stored under **`USER_DATA_DIR`** (default `./data`) in **`users.json`** — they persist across server restarts until you delete that file or directory.
 
 ## Stack
 
 - Express, express-session, cookie-parser  
-- better-sqlite3 (`:memory:`), bcryptjs  
+- File-backed users (`data/users.json`), bcryptjs  
 - Socket.IO 2.x  
 - Optional Anthropic SDK for the companion  
 

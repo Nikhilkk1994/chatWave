@@ -10,14 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "render-build": "npm ci --omit=dev --no-audit --no-fund && node -e \"require('express'); require('better-sqlite3'); console.log('deps ok')\""
+    "render-build": "npm ci --omit=dev --no-audit --no-fund && node -e \"require('express'); console.log('deps ok')\""
   },
   "author": "Nikhil",
   "license": "ISC",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "11.10.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "16.6.1",
     "express": "4.16.4",
